@@ -1,0 +1,102 @@
+============================================
+Commands - Effort
+============================================
+$ sudo add-apt-repository "deb https://cli-assets.heroku.com/branches/stable/apt ./"
+
+# wget -qO- https://cli-assets.heroku.com/install-ubuntu.sh | sh
+
+# sudo apt install curl # needed for desktop version
+
+$ curl -L https://cli-assets.heroku.com/apt/release.key | sudo apt-key add -
+
+$ sudo apt-get update
+
+$ sudo apt-get install heroku
+# During reinstal on server identified superfluous packages:
+  Reading package lists... Done
+  Building dependency tree       
+  Reading state information... Done
+  heroku is already the newest version (7.0.21-1).
+  The following packages were automatically installed and are no longer required:
+    fonts-dejavu-core fonts-dejavu-extra libavahi-client3 libavahi-common-data libavahi-common3 libcups2 libjpeg-turbo8 libjpeg8 liblcms2-2 libpcsclite1 libxi6
+    libxrender1 libxtst6
+  Use 'sudo apt autoremove' to remove them.
+  0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+
+# Cleanup step
+$ sudo apt autoremove fonts-dejavu-core fonts-dejavu-extra libavahi-client3 libavahi-common-data libavahi-common3 libcups2 libjpeg-turbo8 libjpeg8 liblcms2-2 libpcsclite1 libxtst6
+
+$ Heroku Login
+  Enter your Heroku credentials:
+  Email: mikeeggenhuizen@hotmail.com
+  Password: ************
+  Logged in as mikeeggenhuizen@hotmail.com
+
+$ sudo apt install git
+
+$ sudo git clone https://github.com/heroku/java-getting-started.git
+$ cd java-getting-started
+
+# to correct ownership issues with .git on heroku create:
+$ sudo chown mikeegg -R .git
+
+$ heroku create
+# Desktop instance
+  Creating app... done, ? salty-dusk-78302
+  https://salty-dusk-78302.herokuapp.com/ | https://git.heroku.com/salty-dusk-78302.git
+# Server instance
+  Creating app... done, ? glacial-plains-65079
+  https://glacial-plains-65079.herokuapp.com/ | https://git.heroku.com/glacial-plains-65079.git
+
+$ git push heroku master
+# Desktop instance
+  remote: Verifying deploy... done.
+  To https://git.heroku.com/salty-dusk-78302.git
+   * [new branch]      master -> master
+# Server instance
+  remote: Verifying deploy... done.
+  To https://git.heroku.com/glacial-plains-65079.git
+   * [new branch]      master -> master
+
+$ heroku ps:scale web=1
+  Scaling dynos... done, now running web at 1:Free
+
+$ heroku open
+
+$ heroku logs --tail
+
+$ heroku ps
+  Free dyno hours quota remaining this month: 550h 0m (100%)
+  For more information on dyno sleeping and how to upgrade, see:
+  https://devcenter.heroku.com/articles/dyno-sleeping
+
+  === web (Free): java -jar target/java-getting-started-1.0.jar (1)
+  web.1: up 2018/05/01 11:40:47 -0600 (~ 3m ago)
+
+  Free dyno hours quota remaining this month: 1000h 0m (100%)
+  For more information on dyno sleeping and how to upgrade, see:
+  https://devcenter.heroku.com/articles/dyno-sleeping
+  
+  === web (Free): java -jar target/java-getting-started-1.0.jar (1)
+  web.1: up 2018/05/01 20:25:32 +0000 (~ 2m ago)
+
+$ heroku ps:scale web=0
+  Scaling dynos... done, now running web at 0:Free
+
+$ heroku ps:scale web=1
+  Scaling dynos... done, now running web at 1:Free
+
+$ mvn archetype:create
+# Server instance
+  [INFO] Scanning for projects...
+  Downloading from central: https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-starter-parent/2.0.1.RELEASE/spring-boot-starter-parent-2.0.1.RELEASE.pom
+  [ERROR] [ERROR] Some problems were encountered while processing the POMs:
+$ sudo cp pom.xml pom.xml.original
+$ sudo rm pom.xml
+$ mvn archetype:create
+
+$ mvn clean install
+
+$ heroku local web
+
+http://localhost:5000/

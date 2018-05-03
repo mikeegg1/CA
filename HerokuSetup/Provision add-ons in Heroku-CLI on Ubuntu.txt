@@ -1,0 +1,89 @@
+============================================
+Commands - Effort
+============================================
+$ heroku addons:create papertrail
+  Creating papertrail on ? salty-dusk-78302... !
+   ?    Please verify your account to install this add-on plan (please enter a credit card) For more information, see https://devcenter.heroku.com/categories/billing
+   ?    Verify now at https://heroku.com/verify
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+To Correct Errors:
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Go to: https://dashboard.heroku.com/account/applications
+Click on WWW for Personal Apps
+Click on Application to remove (https://dashboard.heroku.com/apps/ancient-oasis-46588)
+Click on Settings Tab
+Click on DeleteApp and follow prompts
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+===========================
+Provision add-ons
+===========================
+$ heroku addons:create papertrail
+  Creating papertrail on ? salty-dusk-78302... free
+  Welcome to Papertrail. Questions and ideas are welcome (support@papertrailapp.com). Happy logging!
+  Created papertrail-concave-36599 as PAPERTRAIL_API_TOKEN
+  Use heroku addons:docs papertrail to view documentation
+
+$ heroku addons
+  Add-on                                     Plan       Price  State  
+  -----------------------------------------  ---------  -----  -------
+  heroku-postgresql (postgresql-flat-94954)  hobby-dev  free   created
+   +- as DATABASE
+  
+  papertrail (papertrail-concave-36599)      choklad    free   created
+   +- as PAPERTRAIL
+  
+  The table above shows add-ons and the attachments to the current app (salty-dusk-78302) or other apps.
+
+$ heroku addons:open papertrail
+  Opening https://addons-sso.heroku.com/apps/cc81677d-d66b-4eb0-9e48-0422f3bc8c84/addons/4cd3b0c8-2f4b-449a-9585-4f52387fe83e...
+# https://papertrailapp.com/systems/salty-dusk-78302/events
+
+$ heroku run bash
+  Running bash on ? salty-dusk-78302... up, run.3107 (Free)
+  ~ $ exit
+
+$ sudo nano src/main/java/com/example/Main.java
+@RequestMapping("/hello")
+String hello(Map<String, Object> model) {
+    RelativisticModel.select();
+    String energy = System.getenv().get("ENERGY");
+    if (energy == null) {
+       energy = "12 GeV";
+    }
+    Amount<Mass> m = Amount.valueOf(energy).to(KILOGRAM);
+    model.put("science", "E=mc^2: " + energy + " = "  + m.toString());
+    return "hello";
+}
+
+$ mvn clean install
+
+$ heroku config:set ENERGY="20 GeV"
+  Setting ENERGY and restarting ? salty-dusk-78302... done, v7
+  ENERGY: 20 GeV
+
+$ heroku config
+  === salty-dusk-78302 Config Vars
+  DATABASE_URL:         postgres://pnppqnnsiwugxe:9333960d9e8fcb4128c57ba33c424a46fb0d93a8e268febaa7bec60cbc012d62@ec2-54-204-46-236.compute-1.amazonaws.com:5432/ddk40d7i9977te
+  ENERGY:               20 GeV
+  PAPERTRAIL_API_TOKEN: UDSla1gr9r9OyBqX8sj
+
+$ heroku pg
+  === DATABASE_URL
+  Plan:                  Hobby-dev
+  Status:                Available
+  Connections:           10/20
+  PG Version:            10.3
+  Created:               2018-05-01 17:40 UTC
+  Data Size:             7.6 MB
+  Tables:                0
+  Rows:                  0/10000 (In compliance)
+  Fork/Follow:           Unsupported
+  Rollback:              Unsupported
+  Continuous Protection: Off
+  Add-on:                postgresql-flat-94954
+
+https://salty-dusk-78302.herokuapp.com/db
+  Read from DB: 2018-05-01 21:19:26.967929
+

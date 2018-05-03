@@ -1,0 +1,88 @@
+============================================
+Commands - Effort
+============================================
+cd /usr/local/src
+sudo wget http://www-us.apache.org/dist/maven/maven-3/3.5.3/binaries/apache-maven-3.5.3-bin.tar.gz
+sudo tar -xf apache-maven-3.5.3-bin.tar.gz
+sudo rm -f apache-maven-3.5.3-bin.tar.gz
+sudo mv apache-maven-3.5.3/ apache-maven/
+cd /etc/profile.d/
+sudo nano maven.sh
+
+# Apache Maven Environment Variables
+ # MAVEN_HOME for Maven 1 - M2_HOME for Maven 2
+ export JAVA_HOME=/usr/lib/jvm/java-8-oracle
+ export M2_HOME=/usr/local/src/apache-maven
+ export MAVEN_HOME=/usr/local/src/apache-maven
+ export PATH=${M2_HOME}/bin:${PATH}
+ 
+sudo chmod +x maven.sh
+source maven.sh
+mvn --version
+
+===========================================
+Prerequisites - Install Java 8 Oracle first 
+===========================================
+Installing Oracle Java 8 in Ubuntu.txt
+
+===========================================
+Written Instructions
+===========================================
+Step 2 - Download Apache Maven
+In this step, we will download the apache maven binary code using the wget command. And we will be using the '/usr/local/src' directory as the Maven home directory.
+
+Go to the '/usr/local/src' directory and download the Apache Maven Binary code.
+
+cd /usr/local/src
+sudo wget http://www-us.apache.org/dist/maven/maven-3/3.5.3/binaries/apache-maven-3.5.3-bin.tar.gz
+
+Extract the maven.tar.gz file, then delete the compressed file.
+
+sudo tar -xf apache-maven-3.5.3-bin.tar.gz
+sudo rm -f apache-maven-3.5.3-bin.tar.gz
+
+And you will get new directory apache-maven-version - rename the directory.
+
+sudo mv apache-maven-3.5.3/ apache-maven/
+
+Apache Maven is now downloaded in the '/usr/local/src/apache-maven' directory.
+
+Unpack Maven
+
+Step 3 - Configure Apache Maven Environment
+In this step, we will configure the environment for Apache Maven. We will define some environment variables that are needed by the Apache Maven, including 'JAVA_HOME', M2_HOME, and the PATH environment for the maven binary files.
+
+Go to the '/etc/profile.d' directory and create a new configuration file 'maven.sh'.
+
+cd /etc/profile.d/
+sudo nano maven.sh
+
+Paste the following configuration there.
+
+# Apache Maven Environment Variables
+ # MAVEN_HOME for Maven 1 - M2_HOME for Maven 2
+ export JAVA_HOME=/usr/lib/jvm/java-8-oracle
+ export M2_HOME=/usr/local/src/apache-maven
+ export MAVEN_HOME=/usr/local/src/apache-maven
+ export PATH=${M2_HOME}/bin:${PATH}
+Save the changes and exit.
+
+Now make the 'maven.sh' script executable and then apply the configuration by running the 'source' command.
+
+sudo chmod +x maven.sh
+source maven.sh
+
+The Apache Maven environment setup has been completed.
+
+Setup Apache Maven
+
+Step 4 - Testing Maven
+To verify the maven installation, we can run the maven command below.
+
+mvn --version
+
+And you should get the result as below.
+
+Test Apache Maven setup
+
+Apache Maven 3.2 installation has been completed. It's running under Linux 64-bit, with Java 1.8 installed, and the Maven home directory is '/usr/local/src/apache-maven'.
